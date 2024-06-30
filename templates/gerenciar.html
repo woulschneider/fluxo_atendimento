@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Gerenciar Diagnósticos</h2>
+<h3>Diagnósticos Selecionados</h3>
+<form method="POST">
+    <input type="hidden" name="action" value="unselect">
+    <table>
+        <tr>
+            <th>Diagnóstico</th>
+            <th>Descrição</th>
+            <th>Remover</th>
+        </tr>
+        {% for diag in diagnosticos_selecionados %}
+        <tr>
+            <td>{{ diag.cid }}</td>
+            <td>{{ diag.descricao }}</td>
+            <td>
+                <input type="checkbox" name="unselect" value="{{ diag.cid }}">
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <button type="submit">Remover Selecionados</button>
+</form>
+
+<h3>Diagnósticos Não Selecionados</h3>
+<form method="POST">
+    <input type="hidden" name="action" value="select">
+    <table>
+        <tr>
+            <th>Diagnóstico</th>
+            <th>Descrição</th>
+            <th>Adicionar</th>
+        </tr>
+        {% for diag in diagnosticos_nao_selecionados %}
+        <tr>
+            <td>{{ diag.cid }}</td>
+            <td>{{ diag.descricao }}</td>
+            <td>
+                <input type="checkbox" name="select" value="{{ diag.cid }}">
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <button type="submit">Adicionar Selecionados</button>
+</form>
+{% endblock %}

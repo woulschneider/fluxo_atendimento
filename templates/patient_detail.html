@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Detalhes do Paciente</h2>
+<p><strong>Nome:</strong> {{ paciente.nome }}</p>
+<p><strong>Diagnóstico:</strong> {{ paciente.diagnostico }}</p>
+<p><strong>CID:</strong> {{ paciente.cid }}</p>
+<p><strong>Etapa Atual:</strong> {{ fluxo.etapa }}</p>
+
+<h3>Modificar Etapa da Abordagem</h3>
+<form method="POST">
+    <label for="etapa">Nova Etapa:</label>
+    <select name="etapa" id="etapa">
+        <option value="Diagnóstico" {% if fluxo.etapa == 'Diagnóstico' %}selected{% endif %}>Diagnóstico</option>
+        <option value="Manejo" {% if fluxo.etapa == 'Manejo' %}selected{% endif %}>Manejo</option>
+        <option value="Acompanhamento" {% if fluxo.etapa == 'Acompanhamento' %}selected{% endif %}>Acompanhamento</option>
+    </select>
+    <button type="submit">Atualizar</button>
+</form>
+
+<a href="{{ url_for('patients') }}">Voltar para a lista de pacientes</a>
+{% endblock %}

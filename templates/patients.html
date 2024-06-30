@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Lista de Pacientes</h2>
+<table>
+    <tr>
+        <th>Nome</th>
+        <th>Diagnóstico</th>
+        <th>CID</th>
+        <th>Etapa</th>
+        <th>Ações</th>
+    </tr>
+    {% for paciente, etapa in pacientes %}
+    <tr>
+        <td>{{ paciente.nome }}</td>
+        <td>{{ paciente.diagnostico }}</td>
+        <td>{{ paciente.cid }}</td>
+        <td class="{% if paciente.cid in diagnosticos_sinalizados %}{% if etapa == 'Diagnóstico' %}etapa-diagnostico{% elif etapa == 'Manejo' %}etapa-manejo{% elif etapa == 'Acompanhamento' %}etapa-acompanhamento{% endif %}{% endif %}">
+            {{ etapa }}
+        </td>
+        <td><a href="{{ url_for('patient_detail', id=paciente.id) }}">Ver Detalhes</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div class="pagination">
+    {% if prev_url %}
+    <a href="{{ prev_url }}">Anterior</a>
+    {% endif %}
+    {% if next_url %}
+    <a href="{{ next_url }}">Próximo</a>
+    {% endif %}
+</div>
+{% endblock %}
